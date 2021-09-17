@@ -1,16 +1,12 @@
 const router = require('express').Router();
+const {signup,signin} = require('../controllers/authController')
 
-const UserSchema = require('../models/userModel')
 
-//Register
-router.get("/register",async(req, res) => {
-    const user = await new UserSchema({
-        username: "john",
-        email:"john@gmail.com",
-        password: "12345678"
-    })
-    await user.save()
-    res.send("success")
-})
+
+// Register
+router.post("/register",signup)
+
+// Login
+router.post("/login",signin)
 
 module.exports = router;
