@@ -7,15 +7,12 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const userRoute = require('./routes/userRoutes')
 const authRoute = require('./routes/authRoutes')
+const postRoute = require('./routes/postRoutes')
+const connectDb = require('./db')
 
 dotenv.config();
 
-mongoose.connect(process.env.CONNECTION_URL,{
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-},()=>{
-    console.log("Connected to Mongo DB")
-});
+connectDb()
 
 // middleware
 app.use(express.json())
@@ -25,6 +22,7 @@ app.use(morgan("common"))
 
 app.use("/api/users",userRoute)
 app.use("/api/auth",authRoute)
+app.use("/api/posts",postRoute)
 
 const port = process.env.PORT || 5000;
 
